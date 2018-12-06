@@ -30,25 +30,25 @@ module.exports = {
                 if (!userInfo)
                     res.status(404).json({
                         status: "error",
-                        message: "User not found",
+                        message: "Usuário não encontrado",
                         data: null
                     });
                 else if (bcrypt.compareSync(req.body.password, userInfo.password)) {
                     const token = jwt.sign(
                         { id: userInfo._id },
                         req.app.get('secretKey'),
-                        { expiresIn: 120 }
+                        { expiresIn: 3600 }
                     );
 
                     res.json({
                         status: "success",
-                        message: "User found",
-                        data: { user: userInfo, token: token, expiresIn: 120 }
+                        message: "Usuário encontrado com sucesso",
+                        data: { user: userInfo, token: token, expiresIn: 3600 }
                     });
                 } else {
                     res.status(401).json({
                         status: "error",
-                        message: "Invalid email/password",
+                        message: "Email e/ou senha inválido(s)",
                         data: null
                     });
                 }
