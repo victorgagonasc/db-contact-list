@@ -1,6 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 const users = require('./routes/users');
+const contacts = require('./routes/contacts');
 const bodyParser = require('body-parser');
 const mongoose = require('./config/database');
 var jwt = require('jsonwebtoken');
@@ -18,6 +19,8 @@ app.use('/users', users);
 app.get('/', function (req, res) {
     res.json({ "welcome": "REST API with node.js" });
 });
+
+app.use('/contacts', validateUser, contacts);
 
 app.get('/favicon.ico', function (req, res) {
     res.sendStatus(204);
